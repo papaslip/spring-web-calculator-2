@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 public class TestInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if(request.getSession().getAttribute("user")==null){
+            response.sendRedirect("/");
+        }
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 

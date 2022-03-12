@@ -29,7 +29,7 @@
             </c:if>
             <c:if test="${sessionScope.user!=null}">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="/calculator">Calculator</a>
+                    <a class="nav-item nav-link" href="/calc">Calculator</a>
                     <a class="nav-item nav-link" href="/logout">Logout</a>
                 </div>
             </c:if>
