@@ -27,37 +27,30 @@ public class UserController {
     }
 
     @GetMapping("/reg")
-    public String registration(){
-        return  "reg";
-    }
+    public String registration(@ModelAttribute("user") User user, Model model){ return  "reg";  }
 
     @PostMapping("/reg")
     public String сonfirmationOfRegistration(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            for(FieldError fieldError:bindingResult.getFieldErrors()){
-                model.addAttribute(fieldError.getField(),fieldError.getDefaultMessage());
-            }
             return  "reg";
         }
         if(userServise.saveUser(user)){
+            System.out.println("User added");
             return "home";
         }else {
             model.addAttribute("errormessage","Something went wrong");
             return  "reg";
         }
-
     }
+
     @GetMapping("/login")
-    public  String authotization(){
+    public  String authotization(@ModelAttribute("user") User user, Model model){
         return  "login";
     }
 
     @PostMapping("/login")
     public String сonfirmationOfAuthorization(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, HttpSession httpSession,Model model){
         if(bindingResult.hasErrors()){
-            for(FieldError fieldError:bindingResult.getFieldErrors()){
-                model.addAttribute(fieldError.getField(),fieldError.getDefaultMessage());
-            }
             return  "login";
         }else {
             Optional<User> optional = userServise.getUserByUsername(user.getUsername());
@@ -75,9 +68,6 @@ public class UserController {
                 return  "login";
             }
         }
-
-
     }
-
 
 }
