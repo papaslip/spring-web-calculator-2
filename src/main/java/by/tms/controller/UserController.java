@@ -69,5 +69,10 @@ public class UserController {
             }
         }
     }
+    @GetMapping("/logout")
+    public String logout(HttpSession httpSession,Model model){
+        httpSession.invalidate();
+        return "home";
+    }
 
 }
