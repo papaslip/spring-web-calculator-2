@@ -8,14 +8,18 @@
         <img height="30" width="30" src="https://cdn2.iconfinder.com/data/icons/ios7-inspired-mac-icon-set/512/Calculator_512.png" alt="MDN logo">
         <a class="navbar-brand" href="/">HOME</a>
         <td>
-      <span th:unless="${session.user == 'null'}">
-      <a class="navbar-brand" href="/reg">Registration</a>
-      <a class="navbar-brand" href="/login">Authorization</a>
-      </span>
-            <span th:if="${session.user == 'null'}">
-      <a class="navbar-brand" href="/calculator">Calculator</a>
-      <a class="navbar-brand" href="/history">History</a>
-      </span>
+            <div th:unless="${session.user}">
+                <a class="navbar-brand" href="/reg">Registration</a>
+                <a class="navbar-brand" href="/login">Authorization</a>
+            </div>
+            <div th:if="${session.user}">
+                <a class="navbar-brand" href="/calc">Calculator</a>
+                <a class="navbar-brand" href="/calc/history">History</a>
+                <a class="navbar-brand" href="#">
+                </a>
+                <a class="navbar-brand" th:text="${session.user.username}">log</a>
+                <a class="navbar-brand" href="/logout">Logout</a>
+            </div>
         </td>
     </nav>
 </div>

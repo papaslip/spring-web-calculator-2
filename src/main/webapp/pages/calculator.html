@@ -1,10 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+
+    <title>Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+    </a>
+    <img height="30" width="30" src="https://cdn2.iconfinder.com/data/icons/ios7-inspired-mac-icon-set/512/Calculator_512.png" alt="MDN logo">
+    <a class="navbar-brand" href="/">HOME</a>
+    <td>
+        <div th:unless="${session.user}">
+            <a class="navbar-brand" href="/reg">Registration</a>
+            <a class="navbar-brand" href="/login">Authorization</a>
+        </div>
+        <div th:if="${session.user}">
+            <a class="navbar-brand" href="/calc">Calculator</a>
+            <a class="navbar-brand" href="/calc/history">History</a>
+            <a class="navbar-brand" href="#">
+            </a>
+            <a class="navbar-brand" th:text="${session.user.username}">log</a>
+            <a class="navbar-brand" href="/logout">Logout</a>
+        </div>
+    </td>
+</nav>
+<form th:method="POST" th:action="@{/calc}" th:object="${operation}">
+    <div class="container col-sm-4">
+        <div class="form-group row my-2">
+            <label class="col-sm-2 col-form-label">Num1</label>
+            <div class="col-sm-10">
+                <input type="text" th:field ="*{num1}" class="form-control" placeholder="Num1" required/>
+                <div style="color:rosybrown" th:if="${#fields.hasErrors('num1')}" th:errors="*{num1}"></div>
+            </div>
+        </div>
+        <div class="form-group row my-12">
+            <label class="col-sm-3 col-form-label">Operator</label>
+
+            <input type="radio" class="btn-check" th:field ="*{operator}" th:value="sum" id="option1" autocomplete="off" checked>
+            <label class="btn btn-secondary col-md-2" for="option1">+</label>
+
+            <input type="radio" class="btn-check" th:field ="*{operator}" th:value="sub" id="option2" autocomplete="off">
+            <label class="btn btn-secondary col-md-2" for="option2">-</label>
+
+            <input type="radio" class="btn-check" th:field ="*{operator}" th:value="mul" id="option3" autocomplete="off">
+            <label class="btn btn-secondary col-md-2" for="option3">*</label>
+
+            <input type="radio" class="btn-check" th:field ="*{operator}" th:value="dif" id="option4" autocomplete="off">
+            <label class="btn btn-secondary col-md-2" for="option4">/</label>
+
+            <div style="color:rosybrown" th:if="${#fields.hasErrors('operator')}" th:errors="*{operator}"></div>
+        </div>
+        <div class="form-group row my-2">
+            <label class="col-sm-2 col-form-label">Num2</label>
+            <div class="col-sm-10">
+                <input type="text" th:field ="*{num2}" class="form-control" placeholder="Num2" required>
+                <div style="color:rosybrown" th:if="${#fields.hasErrors('num2')}" th:errors="*{num2}"></div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row my-2">
+        <button class="btn btn-outline-warning col-sm-2">Submit</button>
+            <div class="col-sm-10">
+                <div style="color: darkorange" class="form-control" th:if="${calculatorMessage}" th:text="${calculatorMessage}"></div>
+            </div>
+        </div>
+        <br>
+    </div>
+</form>
 
 </body>
 </html>

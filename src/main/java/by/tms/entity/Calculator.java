@@ -1,23 +1,29 @@
 package by.tms.entity;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Calculator {
-    public String operation (int num1, int num2, String operator){
 
-        int result=0;
+    public String executeOperation (Operation operation){
+        double num1double = (double) Double.parseDouble(operation.getNum1());
+        double num2double = (double) Double.parseDouble(operation.getNum2());
+        String oper = operation.getOperator();
+        double result=0;
 
-        if (operator.equals("sum")){
-            result = num1+num2;
-            operator="+";
-        } else if (operator.equals("sub")){
-            result = num1-num2;
-            operator="-";
-        } else if (operator.equals("mul")){
-            result = num1*num2;
-            operator="*";
-        } else if (operator.equals("div")){
-            result = num1/num2;
-            operator="/";
+        if (oper.equals("sum")){
+            result = num1double+num2double;
+            operation.setOperator("+");
+        } else if (oper.equals("sub")){
+            result = num1double-num2double;
+            operation.setOperator("-");
+        } else if (oper.equals("mul")){
+            result = num1double*num2double;
+            operation.setOperator("*");
+        } else if (oper.equals("dif")){
+            result = num1double/num2double;
+            operation.setOperator("/");
         }
-        return num1+operator+num2+"="+result;
+        return num1double+operation.getOperator()+num2double+"="+result;
     }
 }

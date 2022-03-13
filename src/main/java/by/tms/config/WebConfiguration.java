@@ -1,6 +1,7 @@
 package by.tms.config;
 
-import by.tms.interceptor.TestInterceptor;
+import by.tms.interceptor.UserInterceptor;
+import by.tms.interceptor.UserNullInterceptor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -22,7 +23,9 @@ import org.thymeleaf.templatemode.TemplateMode;
 public class WebConfiguration extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
 	@Autowired
-	private TestInterceptor testInterceptor;
+	private UserNullInterceptor UserNullInterceptor;
+	@Autowired
+	private UserInterceptor UserInterceptor;
 
 	private ApplicationContext applicationContext;
 
@@ -54,9 +57,10 @@ public class WebConfiguration extends WebMvcConfigurerAdapter implements Applica
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(testInterceptor)
-				.addPathPatterns("/calc/**");
-//				.excludePathPatterns("/user/reg");
+		registry.addInterceptor(UserNullInterceptor)
+				.addPathPatterns("/calc/**").addPathPatterns("/logout/**");
+		registry.addInterceptor(UserInterceptor)
+				.addPathPatterns("/reg/**").addPathPatterns("/login/**");
 	}
 
 	@Override
