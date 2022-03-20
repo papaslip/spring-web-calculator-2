@@ -87,11 +87,13 @@ public class WebConfiguration extends WebMvcConfigurerAdapter implements Applica
 		return dataSource;
 	}
 
+
 	private Properties hibernateProperties() {
 		Properties hibernateProperties = new Properties();
 		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
 		hibernateProperties.setProperty("show_sql", "true");
+		hibernateProperties.setProperty("format_sql", "true");
 		return hibernateProperties;
 	}
 

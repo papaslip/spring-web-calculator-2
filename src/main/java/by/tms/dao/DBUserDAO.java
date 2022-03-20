@@ -4,12 +4,13 @@ import by.tms.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-
+@Component
 @Repository
 @Transactional
 public class DBUserDAO implements UserDAO{
@@ -31,7 +32,7 @@ public class DBUserDAO implements UserDAO{
 
     @Override
     public boolean saveUser(User user) {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
         session.save(user);
         session.close();
         return true;
