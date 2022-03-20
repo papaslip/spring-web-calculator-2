@@ -1,10 +1,15 @@
 package by.tms.entity;
 
+import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@Entity
 public class User {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Pattern(regexp ="[a-zA-Z]+", message = "Name must contain only letters")
     @Size(min = 2, max = 30, message = "Name should be between 2-30 characters")
     private String name;
@@ -12,10 +17,8 @@ public class User {
     private String username;
     @Size(min = 6, max = 30, message = "Pass should be between 6-30 characters")
     private String pass;
-//    @Pattern(regexp = "[1-5]",message = "Choose question")
-//    private String question;
-//    @Size(min = 2, max = 30, message = "Answer should be between 2-30 characters")
-//    private String answer;
+
+
 
     public User(){
     }
@@ -24,15 +27,14 @@ public class User {
         this.name = name;
         this.username = username;
         this.pass = pass;
-//        this.question = question;
-//        this.answer = answer;
+
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -60,19 +62,4 @@ public class User {
         this.pass = pass;
     }
 
-//    public String getQuestion() {
-//        return question;
-//    }
-//
-//    public void setQuestion(String question) {
-//        this.question = question;
-//    }
-//
-//    public String getAnswer() {
-//        return answer;
-//    }
-//
-//    public void setAnswer(String answer) {
-//        this.answer = answer;
-//    }
 }

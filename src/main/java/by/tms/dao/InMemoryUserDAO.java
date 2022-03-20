@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class InMemoryUserDAO implements UserDAO{
     private static volatile InMemoryUserDAO instance;
-    private final Map<Integer, User> dataSource = new ConcurrentHashMap<>();
+    private final Map<Long, User> dataSource = new ConcurrentHashMap<Long, User>();
     private static AtomicInteger idUser = new AtomicInteger(0);
 
     private InMemoryUserDAO(){
